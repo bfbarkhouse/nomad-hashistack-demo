@@ -1,5 +1,6 @@
 .vault-init
 .vault-cmds
-grafana-data/**
+grafana-data/*
+!grafana-data/
 nomad-data/*
 vault-data/*
