@@ -1,0 +1,5 @@
+.vault-init
+.vault-cmds
+grafana-data/*
+nomad-data/*
+vault-data/*
