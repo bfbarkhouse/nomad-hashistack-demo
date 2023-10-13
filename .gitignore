@@ -1,6 +1,9 @@
 .vault-init
 .vault-cmds
 grafana-data/*
-!grafana-data/
+!grafana-data/create-this-dir
 nomad-data/*
+!nomad-data/create-this-dir
 vault-data/*
+!vault-data/create-this-dir
+prometheus-config/*token*
