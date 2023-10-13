@@ -1,7 +1,8 @@
 #!/bin/sh
 
 nohup ./vault/config/entrypoint.sh server > vault.log & 
-export VAULT_ADDR="http://10.0.0.194:8200"
+echo $VAULT_ADDR
+#echo $UNSEAL_KEY
 
 while true
     do
@@ -11,7 +12,7 @@ while true
         if [ $running = "0" ]
             then
                 echo "Unsealing Vault"
-                vault operator unseal xs3I3cy54RdajJhrUCpvWpnaexok6/lZLBAD4pYNo/w=
+                vault operator unseal $UNSEAL_KEY
                 break
             else
                echo "Vault not running yet"

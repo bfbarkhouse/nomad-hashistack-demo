@@ -77,6 +77,10 @@ job "vault-job" {
         cpu    = 500 # MHz
         memory = 128 # MB
       }
+      env {
+        UNSEAL_KEY      = "xs3I3cy54RdajJhrUCpvWpnaexok6/lZLBAD4pYNo/w=" #how to pull this from a local env?
+        VAULT_ADDR      = "http://10.0.0.194:8200"
+      }
     }
   }
 }
