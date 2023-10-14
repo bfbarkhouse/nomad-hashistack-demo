@@ -33,6 +33,9 @@ job "consul-job" {
       port "http" {
         static = 8500
       }
+      port "dns" {
+        static = 8600
+      }
     }
 
     # Create an individual task (unit of work).
@@ -42,7 +45,7 @@ job "consul-job" {
       # Configuration is specific to each driver.
       config {
         image = "hashicorp/consul"
-        ports = ["http"]
+        ports = ["http", "dns"]
         args = [
           "agent", "-config-dir=/etc/consul.d"
         ]

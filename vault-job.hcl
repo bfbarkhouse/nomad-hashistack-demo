@@ -43,6 +43,7 @@ job "vault-job" {
     # The service block tells Nomad how to register this service
     # with Consul for service discovery and monitoring.
     service {
+      name = "vault-server"
       port = "http"
       check {
         name     = "vault"
@@ -78,8 +79,8 @@ job "vault-job" {
         memory = 128 # MB
       }
       env {
-        UNSEAL_KEY      = "xs3I3cy54RdajJhrUCpvWpnaexok6/lZLBAD4pYNo/w=" #how to pull this from a local env?
-        VAULT_ADDR      = "http://10.0.0.194:8200"
+        UNSEAL_KEY      = "xs3I3cy54RdajJhrUCpvWpnaexok6/lZLBAD4pYNo/w=" #todo: pull this from a local env?
+        VAULT_ADDR      = "http://${NOMAD_ADDR_http}"
       }
     }
   }

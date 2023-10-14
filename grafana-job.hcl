@@ -42,6 +42,7 @@ job "grafana-job" {
     # The service block tells Nomad how to register this service
     # with Consul for service discovery and monitoring.
     service {
+      name = "grafana"
       port = "http"
       check {
         name     = "grafana"

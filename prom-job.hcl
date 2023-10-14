@@ -38,6 +38,7 @@ job "prom-job" {
     # The service block tells Nomad how to register this service
     # with Consul for service discovery and monitoring.
     service {
+      name = "prometheus"
       port = "http"
       check {
         name     = "prometheus"
