@@ -12,3 +12,12 @@ scrape_configs:
         - 'vault-server'
     #static_configs:
     #- targets: ['10.0.0.194:8200']
+  - job_name: consul
+    metrics_path: /v1/agent/metrics
+    params:
+      format: ['prometheus']
+    scheme: http
+    #authorization:
+    #  credentials_file: /etc/prometheus/prometheus-token
+    static_configs:
+    - targets: ['10.0.0.194:8500']
