@@ -73,14 +73,25 @@ job "vault-job" {
         destination = "/vault/config"
       }
 
+      #Read the Vault UNSEAL_KEY Nomad Variable and place into the task as an environment variable the startup.sh script can access to unseal Vault.
+      template {
+        data = <<EOH
+{{ with nomadVar "nomad/jobs/vault-job" }}
+UNSEAL_KEY = {{ .UNSEAL_KEY }}
+{{ end }}
+EOH
+
+        destination = "local/vault-config/startup.sh"
+        env         = true
+      }
+
       # Specify the maximum resources required to run the task.
       resources {
         cpu    = 500 # MHz
         memory = 128 # MB
       }
       env {
-        UNSEAL_KEY      = "xs3I3cy54RdajJhrUCpvWpnaexok6/lZLBAD4pYNo/w=" #todo: pull this from a local env?
-        VAULT_ADDR      = "http://${NOMAD_ADDR_http}"
+        VAULT_ADDR = "http://${NOMAD_ADDR_http}"
       }
     }
   }
