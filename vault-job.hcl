@@ -80,8 +80,7 @@ job "vault-job" {
 UNSEAL_KEY = {{ .UNSEAL_KEY }}
 {{ end }}
 EOH
-
-        destination = "local/vault-config/startup.sh"
+        destination = "secrets/file.env"
         env         = true
       }
 

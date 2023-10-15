@@ -1,7 +1,7 @@
 apiVersion: 1
 #deleteDatasources:
 #- name: vault
-#todo: Set up to use Consul to get the prom server. I would like to use the service address however Consul DNS does not listen on port 53. Need to look into port forwarding.
+#todo: I would like to use the Consul service address however Consul DNS does not listen on port 53. Need to look into port forwarding.
 datasources:
 - name: prometheus
   type: prometheus

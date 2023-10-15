@@ -17,6 +17,6 @@ scrape_configs:
     params:
       format: ['prometheus']
     scheme: http
-    #I have to use a static server IP due to host networking complexity when running Nomad and Docker locally.
+    #I have to use a static server IP due to error assigning Consul bind address to my host IP
     static_configs:
     - targets: ['10.0.0.194:8500']

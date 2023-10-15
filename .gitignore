@@ -1,5 +1,5 @@
 .vault-init
-.vault-cmds
+.cmd-refs
 grafana-data/*
 !grafana-data/create-this-dir
 nomad-data/*
