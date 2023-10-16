@@ -7,3 +7,4 @@ nomad-data/*
 vault-data/*
 !vault-data/create-this-dir
 prometheus-config/*token
+local-image.hcl

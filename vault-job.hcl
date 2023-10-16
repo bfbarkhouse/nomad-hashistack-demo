@@ -60,7 +60,7 @@ job "vault-job" {
 
       # Configuration is specific to each driver.
       config {
-        image      = "hashicorp/vault"
+        image      = "hashicorp/vault:1.15.0"
         ports      = ["http"]
         entrypoint = ["/bin/sh", "/vault/config/startup.sh"]
       }
