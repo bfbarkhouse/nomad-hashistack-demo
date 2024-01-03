@@ -27,7 +27,21 @@ job "hello-world-job" {
     network {
       port "http" {
         static = 8080
-        to = 80
+        to     = 80
+      }
+    }
+
+    # The service block tells Nomad how to register this service
+    # with Consul for service discovery and monitoring.
+    service {
+      name = "hello-world"
+      port = "http"
+      check {
+        name     = "hello-world"
+        type     = "tcp"
+        port     = "http"
+        interval = "10s"
+        timeout  = "2s"
       }
     }
 
@@ -41,11 +55,11 @@ job "hello-world-job" {
         ports = ["http"]
       }
       vault {}
-       template {
-    data = <<EOF
+      template {
+        data        = <<EOF
       HTTPD_SECRET = "{{with secret "kv/data/default/hello-world-job"}}{{.Data.data.httpd_secret}}{{end}}"
     EOF
-          destination = "secrets/file.env"
+        destination = "secrets/file.env"
         env         = true
       }
 
