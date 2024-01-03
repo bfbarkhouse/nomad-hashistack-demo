@@ -8,3 +8,4 @@ vault-data/*
 !vault-data/create-this-dir
 prometheus-config/*token
 local-image.hcl
+.nomad-acl-token
