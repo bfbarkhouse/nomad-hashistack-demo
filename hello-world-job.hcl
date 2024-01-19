@@ -53,16 +53,43 @@ job "hello-world-job" {
       config {
         image = "httpd"
         ports = ["http"]
+        #This mounts the task directory to the apache htdocs directory
+        mount {
+          type   = "bind"
+          source = "local"
+          target = "/usr/local/apache2/htdocs"
+        }
       }
-      vault {}
+      vault {
+        role = "bbarkhouse-demo-com-pki" #This is a unique JWT role that allows this task to issue certificates from the bbarkhouse-demo-com PKI role in Vault 
+      }
+      #This template pulls a secret from Vault and creates an environment variable
       template {
+        change_mode = "restart"
         data        = <<EOF
       HTTPD_SECRET = "{{with secret "kv/data/default/hello-world-job"}}{{.Data.data.httpd_secret}}{{end}}"
     EOF
-        destination = "secrets/file.env"
+        destination = "secrets/env"
         env         = true
       }
-
+      #This template pulls a secret from Vault and constructs a new index.html containing the secret
+      template {
+        change_mode = "restart"
+        data        = <<EOF
+      <html><body><h1>{{with secret "kv/data/default/hello-world-job"}}{{.Data.data.httpd_secret}}{{end}}</h1></body></html>
+    EOF
+        destination = "local/index.html"
+      }
+      #This template issues a PKI certificate from Vault and puts it in the task directory      
+      template {
+        change_mode = "restart"
+        data        = <<EOF
+      {{ with secret "pki/issue/bbarkhouse-demo-com" "common_name=hello-world.bbarkhouse-demo.com" "ttl=24h" "alt_names=localhost"}}
+{{ .Data.certificate }}
+{{ end }}
+    EOF
+        destination = "local/hello-world.crt"
+      }
       # Specify the maximum resources required to run the task.
       resources {
         cpu    = 500 # MHz
