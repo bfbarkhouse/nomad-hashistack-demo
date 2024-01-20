@@ -92,7 +92,7 @@ resource "vault_kv_secret_v2" "httpd-secret" {
   delete_all_versions        = true
   data_json                  = jsonencode(
   {
-    httpd_secret       = "nomad_used_workload_identity_to_pull_this_secret"
+    httpd_secret       = "nomad_used_workload_identity_to_pull_this_secret!"
   }
   )
 }
