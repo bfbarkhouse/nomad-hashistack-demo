@@ -84,16 +84,7 @@ path "kv/metadata/default/*" {
 }
 EOT
 }
-#kv secrets engine
-# resource "vault_mount" "hello-world-job-2" {
-#   path        = "hello-world-job-2"
-#   type        = "kv-v2"
-#   options = {
-#     version = "2"
-#     type    = "kv-v2"
-#   }
-# }
-#write secret to kv
+#Write a kv secret that the Nomad job will render via template
 resource "vault_kv_secret_v2" "httpd-secret" {
   mount                      = "kv"
   name                       = "/default/hello-world-job-2"
@@ -101,7 +92,7 @@ resource "vault_kv_secret_v2" "httpd-secret" {
   delete_all_versions        = true
   data_json                  = jsonencode(
   {
-    httpd_secret       = "nomad_used_workload_identity_to_pull_this_secret_again"
+    httpd_secret       = "nomad_used_workload_identity_to_pull_this_secret"
   }
   )
 }
