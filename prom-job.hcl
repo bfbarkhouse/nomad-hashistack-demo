@@ -70,7 +70,7 @@ job "prom-job" {
     }
   }
 }
-#nomad job start prom-job.hcl
+#nomad job run prom-job.hcl
 
 
 

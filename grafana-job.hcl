@@ -78,7 +78,7 @@ job "grafana-job" {
     }
   }
 }
-#nomad job start grafana-job.hcl
+#nomad job run grafana-job.hcl
 
 
 

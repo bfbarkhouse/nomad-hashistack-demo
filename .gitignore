@@ -9,3 +9,6 @@ vault-data/*
 prometheus-config/*token
 local-image.hcl
 .nomad-acl-token
+terraform/.terraform*
+terraform/*.tfstate*
+terraform/tf-vault-approle.txt

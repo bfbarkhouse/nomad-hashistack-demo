@@ -66,7 +66,7 @@ job "consul-job" {
     }
   }
 }
-#nomad job start consul-job.hcl
+#nomad job run consul-job.hcl
 
 
 

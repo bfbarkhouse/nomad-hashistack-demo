@@ -1,6 +1,6 @@
 # This declares a job named "docs". There can be exactly one
 # job declaration per job file.
-job "hello-world-job" {
+job "hello-world-job-2" {
   # Specify this job should run in the region named "us". Regions
   # are defined by the Nomad servers' configuration.
   region = "us"
@@ -20,7 +20,7 @@ job "hello-world-job" {
   # A group defines a series of tasks that should be co-located
   # on the same client (host). All tasks within a group will be
   # placed on the same host.
-  group "hello-world-group" {
+  group "hello-world-2-group" {
     # Specify the number of these tasks we want.
     count = 1
 
@@ -34,10 +34,10 @@ job "hello-world-job" {
     # The service block tells Nomad how to register this service
     # with Consul for service discovery and monitoring.
     service {
-      name = "hello-world"
+      name = "hello-world-2"
       port = "http"
       check {
-        name     = "hello-world"
+        name     = "hello-world-2"
         type     = "tcp"
         port     = "http"
         interval = "10s"
@@ -46,7 +46,7 @@ job "hello-world-job" {
     }
 
     # Create an individual task (unit of work).
-    task "hello-world-server" {
+    task "hello-world-2-server" {
       driver = "docker"
 
       # Configuration is specific to each driver.
@@ -61,13 +61,13 @@ job "hello-world-job" {
         }
       }
       vault {
-        role = "bbarkhouse-demo-com-pki" #This is a unique JWT role that allows this task to issue certificates from the bbarkhouse-demo-com PKI role in Vault 
+        role = "bbarkhouse-demo-hello-world-2" #This is a unique JWT role that allows this task to issue certificates from the bbarkhouse-demo-com PKI role in Vault 
       }
       #This template pulls a secret from Vault and creates an environment variable
       template {
         change_mode = "restart"
         data        = <<EOF
-      HTTPD_SECRET = "{{with secret "kv/data/default/hello-world-job"}}{{.Data.data.httpd_secret}}{{end}}"
+      HTTPD_SECRET = "{{with secret "kv/data/default/hello-world-job-2"}}{{.Data.data.httpd_secret}}{{end}}"
     EOF
         destination = "secrets/env"
         env         = true
@@ -76,7 +76,7 @@ job "hello-world-job" {
       template {
         change_mode = "restart"
         data        = <<EOF
-      <html><body><h1>{{with secret "kv/data/default/hello-world-job"}}{{.Data.data.httpd_secret}}{{end}}</h1></body></html>
+      <html><body><h1>{{with secret "kv/data/default/hello-world-job-2"}}{{.Data.data.httpd_secret}}{{end}}</h1></body></html>
     EOF
         destination = "local/index.html"
       }
@@ -84,11 +84,11 @@ job "hello-world-job" {
       template {
         change_mode = "restart"
         data        = <<EOF
-      {{ with secret "pki/issue/bbarkhouse-demo-com" "common_name=hello-world.bbarkhouse-demo.com" "ttl=24h" "alt_names=localhost"}}
+      {{ with secret "pki-bfbarkhouse/issue/bfbarkhouse-com-demo-pki-role" "common_name=hello-world-2.bfbarkhouse-demo.com" "ttl=24h" "alt_names=localhost"}}
 {{ .Data.certificate }}
 {{ end }}
     EOF
-        destination = "local/hello-world.crt"
+        destination = "local/hello-world-2.crt"
       }
       # Specify the maximum resources required to run the task.
       resources {
@@ -99,7 +99,7 @@ job "hello-world-job" {
   }
 }
 
-#nomad job run hello-world-job.hcl
+#nomad job run hello-world-job-2-job.hcl
 
 
 

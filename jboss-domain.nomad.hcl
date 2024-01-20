@@ -58,4 +58,4 @@ job "jboss-domain-job" {
     }
   }
 }
-#nomad job start jboss-domain.nomad.hcl
+#nomad job run jboss-domain.nomad.hcl

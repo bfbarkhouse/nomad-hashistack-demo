@@ -95,4 +95,4 @@ EOH
     }
   }
 }
-#nomad job start vault-job.hcl
+#nomad job run vault-job.hcl
