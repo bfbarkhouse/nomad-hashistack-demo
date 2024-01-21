@@ -11,4 +11,4 @@ local-image.hcl
 .nomad-acl-token
 terraform/.terraform*
 terraform/*.tfstate*
-terraform/tf-vault-approle.txt
+terraform/tf-vault-approle*
