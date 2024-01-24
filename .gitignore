@@ -15,4 +15,5 @@ terraform/tf-vault-approle*
 /vault-config/agent/roleID
 /vault-config/agent/secretID
 /vault-config/agent/approleToken
+/vault-config/.pidfile
 
