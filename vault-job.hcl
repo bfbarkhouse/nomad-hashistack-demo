@@ -80,7 +80,7 @@ job "vault-job" {
 UNSEAL_KEY = {{ .UNSEAL_KEY }}
 {{ end }}
 EOH
-        destination = "secrets/file.env"
+        destination = "secrets/env"
         env         = true
       }
 

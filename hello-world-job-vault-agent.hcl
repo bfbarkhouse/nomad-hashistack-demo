@@ -88,7 +88,23 @@ job "hello-world-job-vault-agent" {
         volume      = "vault-config"
         destination = "/vault/config"
       }
-
+ #Read the Vault AppRole roleID and secretID from Nomad variables and place into the task as for use by Vault Agent
+      template {
+        data = <<EOH
+{{ with nomadVar "nomad/jobs/hello-world-job-vault-agent" }}
+{{ .ROLE_ID }}
+{{ end }}
+EOH
+        destination = "/secrets/roleID"
+      }
+        template {
+        data = <<EOH
+{{ with nomadVar "nomad/jobs/hello-world-job-vault-agent" }}
+{{ .SECRET_ID }}
+{{ end }}
+EOH
+        destination = "/secrets/secretID"
+      }
       
        resources {
         cpu    = 500 # MHz
