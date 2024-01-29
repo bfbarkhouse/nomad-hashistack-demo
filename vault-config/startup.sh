@@ -20,8 +20,4 @@ while true
         fi
     done
 vault status
-apk update && apk add ca-certificates
-cp /vault/config/tfe-ca.crt /usr/local/share/ca-certificates/tfe-ca.crt
-chmod 644 /usr/local/share/ca-certificates/tfe-ca.crt
-update-ca-certificates
 tail -f vault.log
